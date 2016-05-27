@@ -1,21 +1,15 @@
 {
-  "name": "redux-counter-example",
+  "name": "blog-react",
   "version": "0.0.0",
-  "description": "Redux counter example",
+  "description": "a blog system implemented using react+redux+express",
   "scripts": {
-    "start": "node server.js",
-    "test": "cross-env NODE_ENV=test mocha --recursive --compilers js:babel-register",
-    "test:watch": "npm test -- --watch"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/reactjs/redux.git"
+    "url": "https://github.com/mly-zju/blogReact.git"
   },
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/reactjs/redux/issues"
-  },
-  "homepage": "http://redux.js.org",
   "dependencies": {
     "ejs": "^2.4.2",
     "react": "^0.14.7",
