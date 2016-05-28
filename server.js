@@ -1,18 +1,18 @@
 /* eslint-disable no-console, no-use-before-define */
 // import path from 'path'
-import Express from 'express'
+import express from 'express'
 // import qs from 'qs'
 
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import config from './webpack.config'
+// import React from 'react'
+// import { renderToString } from 'react-dom/server'
+// import HelloMessage from './components/test'
+import rootRouter from './handlers'
 
-import React from 'react'
-import { renderToString } from 'react-dom/server'
-
-import HelloMessage from './components/test'
-const app = new Express()
+const app = express()
 const port = 3000
 
 
@@ -23,16 +23,20 @@ app.use(webpackDevMiddleware(compiler, {
 }))
 app.use(webpackHotMiddleware(compiler))
 
+app.use(express.static('static'));
+
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
-app.get("/", function(req, res) {
+app.use("/", rootRouter);
+
+function rootHandler(req, res) {
   const html = renderToString(<HelloMessage name='John'/>);
   res.render('index', {
     title: 'hello',
     html: html
   });
-})
+}
 
 app.listen(port, function(error) {
   if (error) {
