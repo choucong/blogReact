@@ -1,10 +1,20 @@
-var webpack = require('webpack')
-var webpackDevMiddleware = require('webpack-dev-middleware')
-var webpackHotMiddleware = require('webpack-hot-middleware')
-var config = require('./webpack.config')
+/* eslint-disable no-console, no-use-before-define */
+// import path from 'path'
+import Express from 'express'
+// import qs from 'qs'
 
-var app = new (require('express'))()
-var port = 3000
+import webpack from 'webpack'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import webpackHotMiddleware from 'webpack-hot-middleware'
+import config from './webpack.config'
+
+import React from 'react'
+import { renderToString } from 'react-dom/server'
+
+import HelloMessage from './components/test'
+const app = new Express()
+const port = 3000
+
 
 var compiler = webpack(config)
 app.use(webpackDevMiddleware(compiler, {
@@ -17,8 +27,10 @@ app.set('views', './views');
 app.set('view engine', 'ejs');
 
 app.get("/", function(req, res) {
+  const html = renderToString(<HelloMessage name='John'/>);
   res.render('index', {
-    title: 'hello'
+    title: 'hello',
+    html: html
   });
 })
 
